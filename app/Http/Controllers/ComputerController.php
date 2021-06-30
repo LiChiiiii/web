@@ -39,6 +39,23 @@ class ComputerController extends Controller
         return response()->json($post);
     }
 
+        /**
+     * Show the form for creating a new resource.
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function add(Request $request)
+    {
+        $post = new Post;
+        $post->name = $request->name;
+        $post->asset_num = $request->asset_num ;
+        $post->status = $request->status;
+        $post->classroom_id = $request->classroom_id;
+        $post->save();
+        
+        return response()->json($post);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -67,6 +84,7 @@ class ComputerController extends Controller
         $post->name =$request->name;
         $post->asset_num = $request->asset_num ;
         $post->status = $request->status;
+        $post->classroom_id = $request->classroom_id;
         $post->save();
 
         return response()->json($post);

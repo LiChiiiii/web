@@ -32,7 +32,7 @@
                                     <th> </th>                              
                                 </thead>
                                 <tbody>
-                                    @foreach(App\Models\lost_property::all() as $lost)
+                                    @foreach(App\Models\lost_property::orderby('status','asc')->get() as $lost)
                                     <tr id="sid{{$lost->property_id}}">
                                         <td>{{ $lost-> property_name }}</td>
                                         <td>{{ $lost-> location }}</td>
@@ -40,8 +40,7 @@
                                         <td>{{ $lost-> 	updated_at }}</td>
                                         <td>{{ $lost-> status }}</td>
                                         <td class="text-center">
-                                            <a href="javascript:void(0)" onclick="editProperty({{$lost->property_id}})" class="btn btn-primary">edit status</a>
-                                            <!-- <a href="javascript:void(0)" onclick="deleteProperty({{$lost->property_id}})" class="btn btn-danger">delete</a>                                             -->
+                                            <a href="javascript:void(0)" onclick="editProperty({{$lost->property_id}})" class="btn btn-primary">領取</a>
                                         </td>
                                         <td>
                                             <button type="button" class="close" aria-label="Close" href="javascript:void(0)" onclick="deleteProperty({{$lost->property_id}})">

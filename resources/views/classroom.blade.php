@@ -55,6 +55,44 @@
                             </table>
                     </div>
                 </div>
+                <h3 class="card-title">倉庫備品</h3>
+                <div class="card">
+                    <div class="card-body">
+                            <table id="bucomputerTable" class="table">
+                                <thead class="text-primary ">
+                                    <th>Computer Name</th>
+                                    <th>Asset Number</th>
+                                    <th>Status</th>
+                                    <th class="text-center">Action
+                                    <a href="#" class="fas fa-plus-circle" data-toggle="modal" data-target="#bucomputerModal"></a>
+                                    </th>
+                                    <th></th>                               
+                                </thead>
+                                <tbody>
+                                    @foreach(App\Models\Post::where('classroom_id', '7' )->orderby('name','asc')->get() as $backup)
+                                    <tr id="busid{{$backup->computer_id}}">
+                                        <td>{{$backup->name }}</td>
+                                        <td>{{ $backup->asset_num }}</td>
+                                        <td>{{ $backup->status }}</td>
+                                        <td class="text-center">
+                                            <a href="javascript:void(0)" onclick="editBackupComputer({{$backup->computer_id}})" class="btn btn-info">Edit</a>
+                                            <a href="javascript:void(0)" onclick="deleteBackupComputer({{$backup->computer_id}})" class="btn btn-danger">delete</a>
+                                            
+                                        </td>
+                                        <td>
+                                            <!-- <a href="javascript:void(0)" onclick="sendEmail({{$post->computer_id}})" class="far fa-envelope fa-2x"></a> -->
+                                        </td>
+                                        <!-- <td>
+                                            <button type="button" class="close" aria-label="Close" href="javascript:void(0)" onclick="deleteComputer({{$post->computer_id}})">
+                                            <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </td> -->
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                    </div>
+                </div>
             </div>
         </div>
         <!--equipment table-->
@@ -114,7 +152,7 @@
                                 <tbody>
                                     @foreach(App\Models\Monitor::where('classroom_id', $id )->get() as $monitor)
                                     <tr id="sid{{$monitor->monitor_id}}">
-                                        <td><a href="javascript:void(0)" onclick="sendEmail({{$monitor->monitor_id}})" class="text-dark">{{ $monitor->name }}</a></td>
+                                        <td><a href="javascript:void(0)" onclick="sendEmail_Monitor({{$monitor->monitor_id}})" class="text-dark">{{ $monitor->name }}</a></td>
                                         <td>{{ $monitor->snid }}</td>
                                         <td>{{ $monitor->status }}</td>
                                         <td class="text-center">
@@ -127,10 +165,46 @@
                             </table>
                     </div>
                 </div>
+                <h3 class="card-title">倉庫備品</h3>
+                <div class="card">
+                    <div class="card-body">
+                            <table id="backupTable" class="table">
+                                <thead class="text-primary">
+                                    <th>
+                                        Monitor name
+                                    </th>
+                                    <th>
+                                        SNID
+                                    </th>
+                                    <th>
+                                        status
+                                    </th>
+                                    <th class="text-center">Action
+                                    <a href="#" class="fas fa-plus-circle" data-toggle="modal" data-target="#bumonitorModal"></a>    
+                                    </th> 
+                                    <th></th>
+                                </thead>
+                                <tbody>
+                                    @foreach(App\Models\Monitor::where('classroom_id', '7' )->orderby('name','asc')->get() as $monitor)
+                                    <tr id="busid{{$monitor->monitor_id}}">
+                                        <td>{{ $monitor->name }}</td>
+                                        <td>{{ $monitor->snid }}</td>
+                                        <td>{{ $monitor->status }}</td>
+                                        <td class="text-center">
+                                            <a href="javascript:void(0)" onclick="editBackupMonitor({{$monitor->monitor_id}})" class="btn btn-info">Edit</a>
+                                            <a href="javascript:void(0)" onclick="deleteBackupMonitor({{$monitor->monitor_id}})" class="btn btn-danger" >Delete</a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                    </div>
+                </div>
             </div>
         </div>
         </div>
     </div>
+
 
 <script>
     function openPage(pageName,elmnt) {
@@ -152,6 +226,8 @@
 @include('function.computerTable')
 @include('function.equipmentTable')
 @include('function.monitorTable')
+@include('function.backupmonitorTable')
+@include('function.backupcomputerTable')
 @endsection
 
    

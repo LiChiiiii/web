@@ -1,6 +1,6 @@
 <!--------------------MODAL-------------------->
 <!-- Add Modal -->
-<div class="modal fade" id="computerModal" tabindex="-1" role="dialog" aria-labelledby="computerModalTitle" aria-hidden="true">
+<div class="modal fade" id="bucomputerModal" tabindex="-1" role="dialog" aria-labelledby="bucomputerModalTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
         <div class="modal-header">
@@ -10,20 +10,20 @@
             </button>
         </div>
         <div class="modal-body">
-            <form id="computerForm">
+            <form id="bucomputerForm">
                 @csrf   
                 <!--防止跨網站提交表單(從原始碼可看到加入一個token,確保表單來自我們自己的網站-->
                 <div class="form-group">
-                    <label for="name">Computer Name</label>
-                    <input type="text" class="form-control" id="name" name="name" />
+                    <label for="buname">Computer Name</label>
+                    <input type="text" class="form-control" id="buname" name="buname" />
                 </div>
                 <div class="form-group">
-                    <label for="asset_num">Asset Number</label>
-                    <textarea class="form-control" id="asset_num" name="asset_num" rows="5"></textarea>
+                    <label for="buasset_num">Asset Number</label>
+                    <textarea class="form-control" id="buasset_num" name="buasset_num" rows="5"></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="status">Status</label>
-                    <select class="form-control" id="status" name="status">
+                    <label for="bustatus">Status</label>
+                    <select class="form-control" id="bustatus" name="bustatus">
                         <option>正常使用</option>
                         <option>維修中</option>
                     </select>
@@ -35,7 +35,7 @@
     </div>
 </div>
 <!-- Edit Modal -->
-<div class="modal fade" id="computerEditModal" tabindex="-1" role="dialog" aria-labelledby="computerModalTitle" aria-hidden="true">
+<div class="modal fade" id="bucomputerEditModal" tabindex="-1" role="dialog" aria-labelledby="bucomputerModalTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
         <div class="modal-header">
@@ -45,25 +45,28 @@
             </button>
         </div>
         <div class="modal-body">
-            <form id="computerEditForm">
+            <form id="bucomputerEditForm">
                 @csrf   
                 <!--防止跨網站提交表單(從原始碼可看到加入一個token,確保表單來自我們自己的網站-->
-                <input type="hidden" id="computer_id" name="computer_id" />
-                <input type="hidden" id="classroom_id" name="classroom_id" />
+                <input type="hidden" id="bucomputer_id" name="bucomputer_id" />
                 <div class="form-group">
-                    <label for="name2">Computer Name</label>
-                    <input type="text" class="form-control" id="name2" name="name2" />
+                    <label for="buname2">Computer Name</label>
+                    <input type="text" class="form-control" id="buname2" name="buname2" />
                 </div>
                 <div class="form-group">
-                    <label for="asset_num2">Asset Number</label>
-                    <textarea class="form-control" id="asset_num2" name="asset_num2" rows="5"></textarea>
+                    <label for="buasset_num2">Asset Number</label>
+                    <textarea class="form-control" id="buasset_num2" name="buasset_num2" rows="5"></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="status2">Status</label>
-                    <select class="form-control" id="status2" name="status2">
+                    <label for="bustatus2">Status</label>
+                    <select class="form-control" id="bustatus2" name="bustatus2">
                         <option>正常使用</option>
                         <option>維修中</option>
                     </select>
+                </div>
+                <div class="form-group">
+                    <label for="buclassroom_id2">Classroom ID</label>
+                    <input type="text" class="form-control" id="buclassroom_id2" name="buclassroom_id2" />
                 </div>
                 <button type="submit" class="btn btn-info pull-right">Submit</button>
             </form>
@@ -94,16 +97,14 @@
                     <input type="text" class="form-control" id="subject" name="subject" />
                 </div>
                 <div class="form-group">
-                    <input type="hidden" class="form-control" id="title" name="title" />
+                    <label for="title">標題</label>
+                    <input type="text" class="form-control" id="title" name="title" />
                 </div>
                 <div class="form-group">
                     <label for="content">內文</label>
                     <textarea class="form-control" id="content" name="content" rows="5"></textarea>
                 </div>
-                <div class="form-group">
-                    <label for="num">主機序號</label>
-                    <input type="text" class="form-control" id="num" name="num" />
-                </div>
+                <input type="hidden" id="num" name="num" />
                 <button type="submit" class="btn btn-info pull-right">Submit</button>
             </form>
         </div>
@@ -115,21 +116,23 @@
 <!-- Add function-->
 <script  src="https://code.jquery.com/jquery-3.5.1.min.js"  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="   crossorigin="anonymous"></script>
 <script>
-    $("#computerForm").submit(function(e){
+    $("#bucomputerForm").submit(function(e){
         e.preventDefault();
 
-        let name = $("#name").val();
-        let asset_num = $("#asset_num").val();
-        let status = $("#status").val();
+        let name = $("#buname").val();
+        let asset_num = $("#buasset_num").val();
+        let status = $("#bustatus").val();
+        let classroom_id='7';
         let _token = $("input[name=_token]").val();
 
         $.ajax({
-            url: "{{ route('computer.create', $id ) }}",
+            url: "{{ route('computer.add') }}",
             type: "POST",
             data:{
                 name:name,
                 asset_num:asset_num,
                 status:status,
+                classroom_id:classroom_id,
                 _token:_token,
                 
             },
@@ -138,11 +141,11 @@
             },
             success:function(response)
             {
-                $("#computerTable tbody").prepend('<tr><td>'+response.name+'</td><td>'+response.asset_num+'</td><td>'+response.status+'</td><td class="text-center">'
-                                                    +'<a href="javascript:void(0)" onclick="editComputer({{$post->computer_id}})"class="btn btn-info">Edit</a>  '
-                                                    +'<a href="javascript:void(0)" onclick="deleteComputer({{$post->computer_id}})" class="btn btn-danger">Delete</a></td></tr> ')
-                $("#computerForm")[0].reset();
-                $("#computerModal").modal('hide');
+                $("#bucomputerTable tbody").prepend('<tr><td>'+response.name+'</td><td>'+response.asset_num+'</td><td>'+response.status+'</td><td class="text-center">'
+                                                    +'<a href="javascript:void(0)" onclick="editComputer({{$post->bucomputer_id}})"class="btn btn-info">Edit</a>  '
+                                                    +'<a href="javascript:void(0)" onclick="deleteComputer({{$post->bucomputer_id}})" class="btn btn-danger">Delete</a></td></tr> ')  
+                $("#bucomputerForm")[0].reset();
+                $("#bucomputerModal").modal('hide');
             }
 
         }); 
@@ -150,31 +153,27 @@
 </script>
 <!-- Edit function-->
 <script>
-    function editComputer(computer_id)
+    function editBackupComputer(computer_id)
     {
         $.get(computer_id+'/edit', function(response){
-            $("#computer_id").val(response.computer_id);
-            $("#name2").val(response.name);
-            $("#asset_num2").val(response.asset_num);
-            $("#status2").val(response.status);
-            $("#classroom_id").val(response.classroom_id);
-            $("#computerEditModal ").modal('toggle');
+            $("#bucomputer_id").val(response.computer_id);
+            $("#buname2").val(response.name);
+            $("#buasset_num2").val(response.asset_num);
+            $("#bustatus2").val(response.status);
+            $("#buclassroom_id2").val(response.classroom_id);
+            $("#bucomputerEditModal ").modal('toggle');
         
         })
     }
 
-    $("#computerEditForm").submit(function(e){
+    $("#bucomputerEditForm").submit(function(e){
         e.preventDefault();
 
-        let computer_id = $("#computer_id").val();
-        let name = $("#name2").val();
-        let asset_num = $("#asset_num2").val();
-        let status = $("#status2").val();
-        let classroom_id = $("#classroom_id").val();
-        if(status=='維修中')
-        {
-            classroom_id = '7';
-        }
+        let computer_id = $("#bucomputer_id").val();
+        let name = $("#buname2").val();
+        let asset_num = $("#buasset_num2").val();
+        let status = $("#bustatus2").val();
+        let classroom_id = $("#buclassroom_id2").val();
         let _token = $("input[name=_token]").val();
 
         $.ajax({
@@ -194,18 +193,18 @@
             },
             success:function(response)
             {
-                $('#sid'+response.computer_id+' td:nth-child(1)').text(response.name);
-                $('#sid'+response.computer_id+' td:nth-child(2)').text(response.asset_num);
-                $('#sid'+response.computer_id+' td:nth-child(3)').text(response.status);
-                $('#computerEditModal').modal('toggle');
-                $('#computerEditForm')[0].reset();
+                $('#busid'+response.computer_id+' td:nth-child(1)').text(response.name);
+                $('#busid'+response.computer_id+' td:nth-child(2)').text(response.asset_num);
+                $('#busid'+response.computer_id+' td:nth-child(3)').text(response.status);
+                $('#bucomputerEditModal').modal('toggle');
+                $('#bucomputerEditForm')[0].reset();
             }
         });
     })
 </script>
 <!--Delete function-->
 <script>
-    function deleteComputer(computer_id)
+    function deleteBackupComputer(computer_id)
     {
         if(confirm("確定刪除此電腦資訊?"))
         {
@@ -220,7 +219,7 @@
             },
             success:function(response)
             {
-                $('#sid'+computer_id).remove();
+                $('#busid'+computer_id).remove();
             }
         }); 
 

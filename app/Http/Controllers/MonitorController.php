@@ -35,6 +35,24 @@ class MonitorController extends Controller
     }
 
     
+        /**
+     * Show the form for creating a new resource.
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function add(Request $request)
+    {
+        $monitor = new monitor;
+        $monitor->name = $request->name;
+        $monitor->asset_num = $request->asset_num ;
+        $monitor->status = $request->status;
+        $monitor->classroom_id = $request->classroom_id;
+        $monitor->save();
+        
+        return response()->json($monitor);
+    }
+
+    
     public function edit(string $monitor_id)
     { 
         $monitor = Monitor::find($monitor_id);
@@ -49,6 +67,7 @@ class MonitorController extends Controller
         $monitor->name =$request->name;
         $monitor->snid = $request->snid ;
         $monitor->status = $request->status;
+        $monitor->classroom_id = $request->classroom_id;
         $monitor->save();
 
         return response()->json($monitor);

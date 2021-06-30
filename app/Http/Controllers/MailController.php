@@ -18,9 +18,9 @@ class MailController extends Controller
 
         $details = [
             'email' => 'joycem45@gmail.com',
-            'subject' => 'Test Mail From Lichi Kao',
+            'subject' => '電腦送修通知',
             'title' => 'Computer',
-            'content' => 'This is for testing mail using gmail. ',
+            'content' => '廠商您好:',
             'asset_num' => $computer->asset_num,
         ];
 
@@ -57,9 +57,9 @@ class MailController extends Controller
 
         $details = [
             'email' => 'joycem45@gmail.com',
-            'subject' => 'Test Mail From Lichi Kao',
+            'subject' => '螢幕送修通知',
             'title' => 'Monitor',
-            'content' => 'This is for testing mail using gmail. ',
+            'content' => '廠商您好:',
             'snid' => $monitor->snid,
         ];
 

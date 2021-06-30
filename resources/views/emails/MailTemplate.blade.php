@@ -7,7 +7,7 @@
         <title>MailTemplate</title>
     </head>
     <body>
-        <h1>{!! $title !!}</h1>
+        <h1>{!! $subject !!}</h1>
         <p>{!! $content !!}</p>
     </body>
 </html>

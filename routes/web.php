@@ -30,11 +30,13 @@ Route::get('/schedule/{schedule_id}/sche_edit','ScheduleController@edit')->middl
 Route::put('/schedule/update','ScheduleController@update')->middleware('auth')->name('schedule.update');
 //computer
 Route::post('/classroom/{id}/create','ComputerController@create')->middleware('auth')->name('computer.create');
+Route::post('/classroom/add','ComputerController@add')->middleware('auth')->name('computer.add');
 Route::get('/classroom/{computer_id}/edit','ComputerController@edit')->middleware('auth');
 Route::put('/classroom/update','ComputerController@update')->middleware('auth')->name('computer.update');
 Route::delete('/classroom/{computer_id}/delete','ComputerController@delete')->middleware('auth');
 //monitor
 Route::post('/classroom/{id}/moni_create','MonitorController@create')->middleware('auth')->name('monitor.create');
+Route::post('/classroom/moni_add','MonitorController@add')->middleware('auth')->name('monitor.add');
 Route::get('/classroom/{monitor_id}/moni_edit','MonitorController@edit')->middleware('auth');
 Route::put('/classroom/moni_update','MonitorController@update')->middleware('auth')->name('monitor.update');
 Route::delete('/classroom/{monitor_id}/moni_delete','MonitorController@delete')->middleware('auth');
